@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import UserCards from './components/usercards'
+import axios from 'axios'
+import { Row } from 'antd'
+import Spinner from 'react-spinkit'
+import './App.css'
 
-function App() {
+function App () {
+  const url = process.env.REACT_APP_BACKEND_API_URL + '/users'
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  
+  axios
+    .get(url)
+    .then(response => {
+      setUsers(response.data)
+      setLoading(false)
+    })
+    .catch(err => setLoading(false))
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Row>
+      {loading ? (
+        <Spinner
+          name='cube-grid'
+          style={{
+            position: `absolute`,
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      ) : (
+        <UserCards users={users} />
+      )}
+    </Row>
+  )
 }
 
-export default App;
+export default App
