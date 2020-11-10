@@ -4,9 +4,15 @@ export const getUsers = url => {
   return axios
     .get(url)
     .then(response => {
-      return response.data
+      return {
+        err: false,
+        data: response.data
+      }
     })
     .catch(err => {
-      return []
+      return {
+        err: true,
+        message: err.message
+      }
     })
 }
