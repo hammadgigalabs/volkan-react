@@ -27,7 +27,6 @@ const UserCards = ({ users }) => {
         selectedUser={selectedUser}
         allUsers={allUsers}
         setShowModal={setShowModal}
-        setSelectedUser={setSelectedUser}
         setAllUsers={setAllUsers}
       />
     </React.Fragment>

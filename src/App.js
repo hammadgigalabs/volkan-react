@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import UserCards from './components/usercards'
-import axios from 'axios'
+import {getUsers} from './services/user'
 import { Row } from 'antd'
 import Spinner from 'react-spinkit'
 import './App.css'
@@ -11,13 +11,10 @@ function App () {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios
-      .get(url)
-      .then(response => {
-        setUsers(response.data)
-        setLoading(false)
-      })
-      .catch(err => setLoading(false))
+    getUsers(url).then(data => {
+      setUsers(data)
+      setLoading(false)
+    })
   }, [url])
 
   return (
