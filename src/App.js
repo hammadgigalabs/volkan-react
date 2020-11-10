@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import UserCards from './components/usercards'
 import axios from 'axios'
 import { Row } from 'antd'
@@ -9,15 +9,17 @@ function App () {
   const url = process.env.REACT_APP_BACKEND_API_URL + '/users'
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
-  
-  axios
-    .get(url)
-    .then(response => {
-      setUsers(response.data)
-      setLoading(false)
-    })
-    .catch(err => setLoading(false))
-  
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then(response => {
+        setUsers(response.data)
+        setLoading(false)
+      })
+      .catch(err => setLoading(false))
+  }, [url])
+
   return (
     <Row>
       {loading ? (
