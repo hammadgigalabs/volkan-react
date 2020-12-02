@@ -6,23 +6,27 @@ import Spinner from 'react-spinkit'
 import './App.css'
 
 function App () {
-  const url = process.env.REACT_APP_BACKEND_API_URL + '/users'
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    getUsers(url).then(result => {
+    getUsers().then(result => {
       if (result.err) {
         setShowError(true)
         setErrorMessage(result.message)
       } else {
-        setUsers(result.data)
+        if (result.data && result.data.length) {
+          setUsers(result.data)
+        } else {
+          setShowError(true)
+          setErrorMessage('No users found.')
+        }
       }
       setLoading(false)
     })
-  }, [url])
+  }, [])
 
   return (
     <React.Fragment>

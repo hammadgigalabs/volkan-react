@@ -7,7 +7,8 @@ const UserModal = ({
   selectedUser,
   allUsers,
   setShowModal,
-  setAllUsers
+  setAllUsers,
+  editUserAction
 }) => {
   const [form] = Form.useForm()
   return (
@@ -32,6 +33,13 @@ const UserModal = ({
                 return singleValue
               })
             )
+            editUserAction({
+              ...selectedUser,
+              name: values.name,
+              email: values.email,
+              phone: values.phone,
+              website: values.website
+            })
             setShowModal(false)
           })
           .catch(info => {

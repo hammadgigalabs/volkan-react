@@ -23,7 +23,8 @@ const Card = ({
   allUsers,
   setAllUsers,
   setSelectedUser,
-  setShowModal
+  setShowModal,
+  editUserAction
 }) => {
   return (
     <CardMain
@@ -47,6 +48,7 @@ const Card = ({
                 return singleValue
               })
             )
+            editUserAction(singleUser)
           }}
         >
           {singleUser.favored ? (
@@ -70,6 +72,7 @@ const Card = ({
         </CardActionButton>,
         <CardActionButton
           onClick={() => {
+            // NOT ADDING DELETE FOR NOW
             setAllUsers(
               allUsers.filter(singleValue => singleUser.id !== singleValue.id)
             )
